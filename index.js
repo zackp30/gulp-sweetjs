@@ -55,9 +55,15 @@ module.exports = function(opts) {
       sm.file = file.path;
       applySourceMap(file, sm);
     }
+      var code;
+      for(var i = 0; i < res.length; i++) {
+          if (res[i].path === dest) {
+              code = res[i].code;
+          }
+      }
 
-    file.contents = new Buffer(res.code);
     file.path = dest;
+    file.contents = new Buffer(code);
     this.emit('data', file);
   });
 };
